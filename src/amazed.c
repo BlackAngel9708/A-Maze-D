@@ -22,6 +22,7 @@ int display_shortest_path(shortest_path_t *shortest_path)
     if (shortest_path == NULL || shortest_path->room == NULL)
         return FAILURE;
     display_shortest_path(shortest_path->next);
+    my_putstr("P1-");
     my_putstr(shortest_path->room->name);
     my_putchar('\n');
     return SUCCESS;
@@ -38,6 +39,7 @@ int amazed(void)
         return EPITECH_FAILURE;
     if (get_shortest_path(map, info, &shortest_path) == FAILURE)
         return EPITECH_FAILURE;
+    my_putstr("#moves\n");
     display_shortest_path(shortest_path);
     return SUCCESS;
 }
