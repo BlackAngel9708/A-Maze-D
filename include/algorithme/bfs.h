@@ -8,6 +8,7 @@
 #ifndef BFS_H_
     #define BFS_H_
     #include "../map.h"
+    #include "../amazed.h"
 
 typedef struct encountered_room_s {
     map_t *map;
@@ -24,7 +25,9 @@ typedef struct shortest_path_s {
     struct shortest_path_s *next;
 } shortest_path_t;
 
-int get_shortest_path(map_t *map, const char *end_room,
+int get_shortest_path(map_t *map, info_t *info,
     shortest_path_t **shortest_path);
+shortest_path_t *retrieve_bfs_shortest_path(char const *start_room,
+    char const *end_room, encountered_room_t *visited);
 
 #endif

@@ -16,6 +16,7 @@ SRC	+=	src/linked_list/comment_handling.c
 SRC	+=	src/linked_list/coordinate_handling.c
 SRC	+=	src/linked_list/link_handling.c
 SRC	+=	src/algorithme/bfs_algo.c
+SRC	+=	src/algorithme/shortest_path.c
 
 OBJ = $(SRC:.c=.o)
 
