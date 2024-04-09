@@ -89,7 +89,7 @@ static void handle_first_room(map_t *map, info_t *info, char **room)
     info->i += 1;
     info->rooms_name[info->i] = NULL;
     map->link = malloc(sizeof(map_t));
-    map->link[0] = malloc(sizeof(map_t));
+    map->link[0] = NULL;
     map->x = my_strdup(room[1]);
     map->y = my_strdup(room[2]);
 }
