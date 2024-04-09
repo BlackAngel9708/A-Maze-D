@@ -13,6 +13,7 @@ map_t *create_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
 
+
     if (map == NULL)
         return NULL;
     map->name = NULL;
