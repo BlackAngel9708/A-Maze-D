@@ -38,6 +38,7 @@ int amazed(void)
         return EPITECH_FAILURE;
     if (get_shortest_path(map, info, &shortest_path) == FAILURE)
         return EPITECH_FAILURE;
+    my_putstr("#moves\n");
     display_shortest_path(shortest_path);
     return SUCCESS;
 }
