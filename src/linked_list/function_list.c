@@ -88,6 +88,8 @@ static void handle_first_room(map_t *map, info_t *info, char **room)
     info->rooms_name[info->i] = my_strdup(room[0]);
     info->i += 1;
     info->rooms_name[info->i] = NULL;
+    map->link = malloc(sizeof(map_t));
+    map->link[0] = malloc(sizeof(map_t));
     map->x = my_strdup(room[1]);
     map->y = my_strdup(room[2]);
 }
@@ -104,6 +106,8 @@ void handle_other_rooms(map_t *map, info_t *info, map_t *tmp, char **room)
     info->rooms_name[info->i] = my_strdup(room[0]);
     info->i += 1;
     info->rooms_name[info->i] = NULL;
+    tmp->link = malloc(sizeof(map_t));
+    tmp->link[0] = NULL;
     tmp->x = my_strdup(room[1]);
     tmp->y = my_strdup(room[2]);
     tmp->next = NULL;
