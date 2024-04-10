@@ -21,6 +21,10 @@ static
 void initialize_shortest_path(char const *end_room,
     encountered_room_t *visited, shortest_path_t *shortest_path)
 {
+    if (shortest_path == NULL)
+        return;
+    shortest_path->room = NULL;
+    shortest_path->next = NULL;
     while (visited != NULL) {
         if (visited->map == NULL) {
             visited = visited->next;
