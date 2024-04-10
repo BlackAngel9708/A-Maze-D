@@ -27,6 +27,7 @@ typedef struct info {
     size_t i;
     size_t size_initial;
     size_t size_final;
+    int nb_robots;
     int robots;
     int rooms;
     int link;

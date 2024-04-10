@@ -88,10 +88,10 @@ shortest_path_t *parse_shortest_path_link(shortest_path_t *shortest_path,
             visited = visited->next;
             break;
         }
-        if (add_previous_room(visited, &shortest_path, index) == FAILURE)
-            return NULL;
         if (my_strcmp(shortest_path->room->name, start_room) == 0)
             return shortest_path_head;
+        if (add_previous_room(visited, &shortest_path, index) == FAILURE)
+            return NULL;
         visited = visited->next;
     }
     return shortest_path_head;

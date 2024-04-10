@@ -13,17 +13,26 @@
 #include "linked_list.h"
 #include "amazed.h"
 #include "my.h"
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 static
-int display_shortest_path(shortest_path_t *shortest_path)
+int display_shortest_path(shortest_path_t *shortest_path, int nb_robots)
 {
     if (shortest_path == NULL || shortest_path->room == NULL)
         return FAILURE;
-    display_shortest_path(shortest_path->next);
-    my_putstr("P1-");
-    my_putstr(shortest_path->room->name);
+    if (shortest_path->next == NULL)
+        return FAILURE;
+    display_shortest_path(shortest_path->next, nb_robots);
+    for (int i = 1; i <= nb_robots; i += 1) {
+        if (i > 1)
+            my_putchar(' ');
+        my_putstr("P");
+        my_put_nbr(i);
+        my_putstr("-");
+        my_putstr(shortest_path->room->name);
+    }
     my_putchar('\n');
     return SUCCESS;
 }
@@ -35,11 +44,11 @@ int amazed(void)
     info_t *info = malloc(sizeof(info_t));
     char **instruction = parse_map(map, info);
 
-    if (instruction == NULL)
+    if (instruction == NULL || info == NULL)
         return EPITECH_FAILURE;
     if (get_shortest_path(map, info, &shortest_path) == FAILURE)
         return EPITECH_FAILURE;
     my_putstr("#moves\n");
-    display_shortest_path(shortest_path);
+    display_shortest_path(shortest_path, info->nb_robots);
     return SUCCESS;
 }
