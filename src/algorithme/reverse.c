@@ -16,23 +16,6 @@
 #include "my.h"
 #include "algorithme/bfs.h"
 
-static
-void increment_reverse(int *do_reverse, int *size)
-{
-    *do_reverse += 1;
-    *size -= 1;
-}
-
-static
-shortest_path_t *do_reverse_list(shortest_path_t **list, int *do_reverse)
-{
-    while (*do_reverse > 0) {
-        *list = reverse_list(*list);
-        *do_reverse -= 1;
-    }
-    return *list;
-}
-
 shortest_path_t *reverse_list(shortest_path_t *list)
 {
     shortest_path_t *tmp = NULL;

@@ -125,6 +125,7 @@ int execute_bfs(encountered_room_t *visited, room_queue_t *queue,
     *shortest_path = retrieve_bfs_shortest_path(info->start_name,
         info->end_name, visited);
     destroy_end(visited, queue_head);
+    *shortest_path = reverse_list(*shortest_path);
     return SUCCESS;
 }
 
