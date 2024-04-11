@@ -110,9 +110,11 @@ static
 int execute_bfs(encountered_room_t *visited, room_queue_t *queue,
     info_t *info, shortest_path_t **shortest_path)
 {
+    room_queue_t *queue_head = queue;
+
     if (queue == NULL || queue->map == NULL || queue->map->name == NULL
         || queue->map->link == NULL || visited == NULL || info == NULL) {
-        destroy_end(visited, queue);
+        destroy_end(visited, queue_head);
         return display_error("Unable to access the room info\n");
     }
     while (queue != NULL) {
@@ -122,7 +124,7 @@ int execute_bfs(encountered_room_t *visited, room_queue_t *queue,
     }
     *shortest_path = retrieve_bfs_shortest_path(info->start_name,
         info->end_name, visited);
-    destroy_end(visited, queue);
+    destroy_end(visited, queue_head);
     return SUCCESS;
 }
 
