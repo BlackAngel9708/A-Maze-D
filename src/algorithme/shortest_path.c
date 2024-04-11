@@ -25,6 +25,7 @@ void initialize_shortest_path(char const *end_room,
         return;
     shortest_path->room = NULL;
     shortest_path->next = NULL;
+    shortest_path->previous = NULL;
     while (visited != NULL) {
         if (visited->map == NULL) {
             visited = visited->next;
@@ -50,6 +51,7 @@ int add_previous_room(encountered_room_t *visited,
         (*shortest_path)->next = malloc(sizeof(shortest_path_t));
         if ((*shortest_path)->next == NULL)
             return FAILURE;
+        (*shortest_path)->next->previous = *shortest_path;
         (*shortest_path) = (*shortest_path)->next;
         (*shortest_path)->room = visited->map;
         (*shortest_path)->next = NULL;

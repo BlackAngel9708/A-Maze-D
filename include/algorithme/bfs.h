@@ -23,11 +23,13 @@ typedef struct room_queue_s {
 typedef struct shortest_path_s {
     map_t *room;
     struct shortest_path_s *next;
+    struct shortest_path_s *previous;
 } shortest_path_t;
 
 int get_shortest_path(map_t *map, info_t *info,
     shortest_path_t **shortest_path);
 shortest_path_t *retrieve_bfs_shortest_path(char const *start_room,
     char const *end_room, encountered_room_t *visited);
+shortest_path_t *reverse_list(shortest_path_t *list);
 
 #endif

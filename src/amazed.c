@@ -90,13 +90,14 @@ int amazed(void)
     shortest_path_t *shortest_path = NULL;
     info_t *info = malloc(sizeof(info_t));
     char **instruction = parse_map(map, info);
+    int current_room = 1;
 
     if (instruction == NULL || info == NULL)
         return EPITECH_FAILURE;
     if (get_shortest_path(map, info, &shortest_path) == FAILURE)
         return EPITECH_FAILURE;
     my_putstr("#moves\n");
-    display_shortest_path(shortest_path, info->nb_robots);
+    display_shortest_path(shortest_path, info->nb_robots, current_room);
     destroy_end(map, shortest_path, info, instruction);
     return SUCCESS;
 }
