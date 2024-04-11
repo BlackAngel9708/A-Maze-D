@@ -18,6 +18,7 @@ SRC	+=	src/linked_list/link_handling.c
 SRC	+=	src/algorithme/bfs_algo.c
 SRC	+=	src/algorithme/shortest_path.c
 SRC	+=	src/display/display.c
+SRC	+=	src/algorithme/reverse.c
 
 OBJ = $(SRC:.c=.o)
 

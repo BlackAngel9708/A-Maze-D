@@ -9,26 +9,40 @@
 #include "my_macros.h"
 #include "my.h"
 
-int display_shortest_path(shortest_path_t *shortest_path, int nb_robots,
-    int start_room)
+int display_shortest_path(shortest_path_t *shortest_path, info_t *info)
 {
-    if (shortest_path == NULL || shortest_path->room == NULL)
-        return FAILURE;
-    if (shortest_path->next == NULL)
-        return FAILURE;
-    display_shortest_path(shortest_path->next, nb_robots, start_room);
-    for (int i = start_room; i <= nb_robots; i += 1) {
-        if (i > 1)
+    shortest_path_t *robot_room = NULL;
+    int robot_finished = 0;
+
+    while (shortest_path != NULL) {
+        if (shortest_path->room == NULL)
+            return FAILURE;
+        if (my_strcmp(shortest_path->room->name, info->start_name) == 0) {
             shortest_path = shortest_path->next;
-        if (shortest_path == NULL || shortest_path->next == NULL)
             break;
-        if (i > 1)
-            my_putchar(' ');
-        my_putstr("P");
-        my_put_nbr(i);
-        my_putstr("-");
-        my_putstr(shortest_path->room->name);
+        }
+        shortest_path = shortest_path->next;
     }
-    my_putchar('\n');
+    if (shortest_path == NULL || shortest_path->room == NULL || info == NULL)
+        return FAILURE;
+    while (robot_finished < info->nb_robots && shortest_path != NULL) {
+        robot_room = shortest_path;
+        for (int current_robot = robot_finished + 1; current_robot <= info->nb_rooms; current_robot += 1) {
+            if (current_robot > robot_finished + 1)
+                my_putchar(' ');
+            my_putstr("P");
+            my_put_nbr(current_robot);
+            my_putstr("-");
+            my_putstr(robot_room->room->name);
+            if (robot_room->previous == NULL
+                || my_strcmp(robot_room->previous->room->name, info->start_name) == 0) {
+                    break;
+            }
+            robot_room = robot_room->previous;
+        }
+        my_putchar('\n');
+        robot_finished += 1;
+        shortest_path = shortest_path->next;
+    }
     return SUCCESS;
 }

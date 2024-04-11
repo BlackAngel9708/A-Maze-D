@@ -9,6 +9,6 @@
     #define DISPLAY_H_
     #include "../algorithme/bfs.h"
 
-int display_shortest_path(shortest_path_t *shortest_path, int nb_robot, int start_room);
+int display_shortest_path(shortest_path_t *shortest_path, info_t *info);
 
 #endif
