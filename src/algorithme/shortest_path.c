@@ -115,7 +115,7 @@ shortest_path_t *retrieve_bfs_shortest_path(char const *start_room,
     initialize_shortest_path(end_room, visited, shortest_path);
     visited = visited_head;
     if (shortest_path->room == NULL || shortest_path->room->link == NULL) {
-        display_error("Algorith couldn't find the end_room\n");
+        display_error("Algorithme couldn't find the end_room\n");
         return free(shortest_path), NULL;
     }
     while (shortest_path != NULL) {

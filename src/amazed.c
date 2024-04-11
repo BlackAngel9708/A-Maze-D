@@ -84,6 +84,21 @@ void destroy_end(map_t *map, shortest_path_t *shortest_path,
         destroy_instructions(instructions);
 }
 
+static
+int check_correct_map(shortest_path_t *shortest_path, info_t *info)
+{
+    if (shortest_path == NULL)
+        return display_error("No shortest_path\n");
+    while (shortest_path != NULL) {
+        if (shortest_path->room == NULL)
+            return display_error("No room in the shortest path\n");
+        if (my_strcmp(shortest_path->room->name, info->end_name) == 0)
+            return SUCCESS;
+        shortest_path = shortest_path->next;
+    }
+    return display_error("You can't reach the end room with these links\n");
+}
+
 int amazed(void)
 {
     map_t *map = create_map();
@@ -94,6 +109,8 @@ int amazed(void)
     if (instruction == NULL || info == NULL)
         return EPITECH_FAILURE;
     if (get_shortest_path(map, info, &shortest_path) == FAILURE)
+        return EPITECH_FAILURE;
+    if (check_correct_map(shortest_path, info) != SUCCESS)
         return EPITECH_FAILURE;
     my_putstr("#moves\n");
     display_shortest_path(shortest_path, info);
