@@ -23,6 +23,9 @@ void destroy_map(map_t *map)
     if (map == NULL)
         return;
     destroy_map(map->next);
+    if (map->link != NULL) {
+        free(map->link);
+    }
     if (map->name != NULL)
         free(map->name);
     free(map);

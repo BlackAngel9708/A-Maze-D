@@ -18,6 +18,24 @@
 #include "my_types.h"
 
 static
+void destroy_end(encountered_room_t *visited, room_queue_t *queue)
+{
+    encountered_room_t *visited_tmp = NULL;
+    room_queue_t *queue_tmp = NULL;
+
+    while (visited != NULL) {
+        visited_tmp = visited->next;
+        free(visited);
+        visited = visited_tmp;
+    }
+    while (queue != NULL) {
+        queue_tmp = queue->next;
+        free(queue);
+        queue = queue_tmp;
+    }
+}
+
+static
 int check_visited(map_t const *map, encountered_room_t *visited)
 {
     if (map == NULL) {
@@ -93,8 +111,10 @@ int execute_bfs(encountered_room_t *visited, room_queue_t *queue,
     info_t *info, shortest_path_t **shortest_path)
 {
     if (queue == NULL || queue->map == NULL || queue->map->name == NULL
-        || queue->map->link == NULL || visited == NULL || info == NULL)
+        || queue->map->link == NULL || visited == NULL || info == NULL) {
+        destroy_end(visited, queue);
         return display_error("Unable to access the room info\n");
+    }
     while (queue != NULL) {
         if (check_linked_room(queue, visited, info->end_name) == SUCCESS)
             break;
@@ -102,6 +122,7 @@ int execute_bfs(encountered_room_t *visited, room_queue_t *queue,
     }
     *shortest_path = retrieve_bfs_shortest_path(info->start_name,
         info->end_name, visited);
+    destroy_end(visited, queue);
     return SUCCESS;
 }
 
