@@ -29,9 +29,10 @@ static char **retrieve_map(void)
         arr = my_realloc(arr, size_initial, size_final);
         size_initial = size_final;
         arr[k] = buf;
-        buf = NULL;
-        arr[k] = string_format(arr[k], "\n");
+        if (arr[k][my_strlen(arr[k]) - 1] == '\n')
+            arr[k][my_strlen(arr[k]) - 1] = '\0';
         k += 1;
+        buf = NULL;
     }
     arr = my_realloc(arr, size_initial, size_final + 8);
     arr[k] = NULL;

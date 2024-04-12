@@ -17,6 +17,8 @@ map_t *create_map(void)
         return NULL;
     map->name = NULL;
     map->link = NULL;
+    map->x = NULL;
+    map->y = NULL;
     map->next = NULL;
     return map;
 }
