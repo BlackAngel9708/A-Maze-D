@@ -9,6 +9,7 @@
 #include "amazed.h"
 #include "my_macros.h"
 #include "my.h"
+#include <stddef.h>
 
 static
 void display_single_move(info_t *info,
@@ -51,12 +52,44 @@ int display_robots_move(info_t *info,
     return robot_finished;
 }
 
+static
+void display_space(int index)
+{
+    if (index > 0)
+        my_putchar(' ');
+}
+
+static
+int check_only_one_move(shortest_path_t *shortest_path, info_t *info)
+{
+    shortest_path_t *current_room = 0;
+
+    if (shortest_path == NULL || shortest_path->room == NULL)
+        return FALSE;
+    if (shortest_path->next != NULL && shortest_path->next->room != NULL
+        && shortest_path->next->room->next == NULL) {
+        current_room = shortest_path->next;
+        for (int i = 0; i < info->nb_robots; i += 1) {
+            display_space(i);
+            my_putstr("P");
+            my_put_nbr(i + 1);
+            my_putstr("-");
+            my_putstr(current_room->room->name);
+        }
+        my_putchar('\n');
+        return TRUE;
+    }
+    return FALSE;
+}
+
 int display_shortest_path(shortest_path_t *shortest_path, info_t *info)
 {
     shortest_path_t *robot_rooms[info->nb_robots + 1];
     int robot_finished = 0;
     int line_print = 0;
 
+    if (check_only_one_move(shortest_path, info) == TRUE)
+        return SUCCESS;
     for (int i = 0; i <= info->nb_robots; i += 1)
         robot_rooms[i] = NULL;
     robot_rooms[0] = shortest_path;
