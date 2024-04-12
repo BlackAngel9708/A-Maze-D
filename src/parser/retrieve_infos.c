@@ -28,7 +28,8 @@ static char **retrieve_map(void)
         size_final += 8;
         arr = my_realloc(arr, size_initial, size_final);
         size_initial = size_final;
-        arr[k] = my_strdup(buf);
+        arr[k] = buf;
+        buf = NULL;
         arr[k] = string_format(arr[k], "\n");
         k += 1;
     }

@@ -24,11 +24,14 @@ void destroy_map(map_t *map)
     if (map == NULL)
         return;
     destroy_map(map->next);
-    if (map->link != NULL) {
+    if (map->link != NULL)
         free(map->link);
-    }
     if (map->name != NULL)
         free(map->name);
+    if (map->x != NULL)
+        free(map->x);
+    if (map->y != NULL)
+        free(map->y);
     free(map);
 }
 
