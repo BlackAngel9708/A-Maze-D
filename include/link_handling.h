@@ -9,5 +9,6 @@
     #define LINK_HANDLING_H_
 
 int handle_link(map_t *map, char **instruction);
+void free_arr(char **arr);
 
 #endif

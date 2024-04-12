@@ -11,6 +11,7 @@
 #include "amazed.h"
 #include "comment_handling.h"
 #include "coordinate_handling.h"
+#include "link_handling.h"
 #include <stdlib.h>
 
 static int check_link(char **room, size_t *i, size_t *j, int **link)
@@ -122,6 +123,8 @@ static int retrieve_room(char **room, map_t *map, info_t *info)
         return FAILURE;
     if (info->nb_rooms == 1) {
         handle_first_room(map, info, room);
+        if (tmp != NULL)
+            free(tmp);
         return SUCCESS;
     }
     while (map->next != NULL)
