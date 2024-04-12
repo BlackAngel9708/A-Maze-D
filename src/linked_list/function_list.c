@@ -81,7 +81,7 @@ static void handle_first_room(map_t *map, info_t *info, char **room)
 {
     if (map == NULL || info == NULL || room == NULL || room[0] == NULL)
         return;
-    map->name = room[0];
+    map->name = my_strdup(room[0]);
     info->rooms_name = my_realloc(info->rooms_name,
         info->size_initial, info->size_final);
     info->size_initial = info->size_final;
@@ -171,5 +171,5 @@ int adding_rooms(map_t *map, char *instruction, info_t *info)
         retrieve_room(room, map, info);
     if (print_rooms(instruction, info) == FAILURE)
         return FAILURE;
-    return SUCCESS;
+    return free_arr(&room), SUCCESS;
 }

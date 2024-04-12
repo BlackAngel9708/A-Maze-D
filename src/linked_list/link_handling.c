@@ -11,15 +11,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void free_arr(char **arr)
+void free_arr(char ***arr)
 {
-    if (arr != NULL) {
-        for (size_t i = 0; arr[i] != NULL; i += 1) {
-            free(arr[i]);
-            arr[i] = NULL;
+    if (*arr != NULL) {
+        for (size_t i = 0; (*arr)[i] != NULL; i += 1) {
+            free((*arr)[i]);
+            (*arr)[i] = NULL;
         }
-        free(arr);
-        arr = NULL;
+        free(*arr);
+        *arr = NULL;
     }
 }
 
@@ -41,14 +41,14 @@ static int find_link(char *instruction)
         return FAILURE;
     link = my_str_to_word_array(instruction, " ");
     if (retrieve_len_link(link, &len) == FAILURE) {
-        free_arr(link);
+        free_arr(&link);
         return FAILURE;
     }
     if (len == 1 && my_strncmp(instruction, "#", 1) != 0) {
-        free_arr(link);
+        free_arr(&link);
         return 1;
     }
-    free_arr(link);
+    free_arr(&link);
     return SUCCESS;
 }
 
@@ -126,7 +126,7 @@ static int retrieve_link(map_t *map, char *link)
             assign_second_link(map, head, arr);
         map = map->next;
     }
-    free_arr(arr);
+    free_arr(&arr);
     return SUCCESS;
 }
 
